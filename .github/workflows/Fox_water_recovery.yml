@@ -93,7 +93,6 @@ jobs:
         cd ${GITHUB_WORKSPACE}/OrangeFox
         git config --global user.name "ツ๛abrohim๛"
         git config --global user.email "callofduty.pubg786@gmail.com"
-        git clone https://gitlab.com/OrangeFox/sync.git
         cd sync
         ./orangefox_sync.sh --debug --branch ${{ github.event.inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ github.event.inputs.MANIFEST_BRANCH }}
 
