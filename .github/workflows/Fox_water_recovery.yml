@@ -27,7 +27,7 @@ on:
       DEVICE_NAME:
         description: 'Specify your Device Codename.'
         required: true
-        default: 'twrp_water'
+        default: 'water'
       BUILD_TARGET:
         description: 'Specify your Build Target'
         required: true
@@ -72,10 +72,7 @@ jobs:
         echo "Include Recovery Installer: ${{ github.event.inputs.RECOVERY_INSTALLER }}"
         echo "Release recovery.tar For Samsung devices: ${{ github.event.inputs.RECOVERY_TAR }}"
         echo "::endgroup::"
-
-    - name: Clean-up
-      uses: rokibhasansagar/slimhub_actions@main
-
+        
     - name: Swap Space
       uses: pierotofy/set-swap-space@master
       with:
