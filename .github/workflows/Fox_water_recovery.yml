@@ -64,6 +64,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v5
+      with:
+          clean: 'false'
+          fetch-tags: 'true'
+          show-progress: 'true'
 
     - name: Display Inputs
       run: |
@@ -72,7 +76,9 @@ jobs:
         echo "Include Recovery Installer: ${{ github.event.inputs.RECOVERY_INSTALLER }}"
         echo "Release recovery.tar For Samsung devices: ${{ github.event.inputs.RECOVERY_TAR }}"
         echo "::endgroup::"
-        
+        export GIT_TRACE_PACKET=1
+        export GIT_TRACE=1
+        export GIT_CURL_VERBOSE=1
     - name: Swap Space
       uses: pierotofy/set-swap-space@master
       with:
@@ -89,17 +95,23 @@ jobs:
     - name: Set-up Manifest
       if: github.event.inputs.MANIFEST_BRANCH == '11.0' || github.event.inputs.MANIFEST_BRANCH == '12.1' || github.event.inputs.MANIFEST_BRANCH == '14.1'
       run: |
+        export GIT_TRACE_PACKET=1
+        export GIT_TRACE=1
+        export GIT_CURL_VERBOSE=1
         mkdir -p ${GITHUB_WORKSPACE}/OrangeFox
         cd ${GITHUB_WORKSPACE}/OrangeFox
         git config --global user.name "ツ๛abrohim๛"
         git config --global user.email "callofduty.pubg786@gmail.com"
         cd sync
-        ./orangefox_sync.sh --debug --branch ${{ github.event.inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ github.event.inputs.MANIFEST_BRANCH }}
+        ./orangefox_sync.sh --branch ${{ github.event.inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ github.event.inputs.MANIFEST_BRANCH }} --debug 
 
     - name: Clone Device Tree
       run: |
+        export GIT_TRACE_PACKET=1
+        export GIT_TRACE=1
+        export GIT_CURL_VERBOSE=1
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ github.event.inputs.MANIFEST_BRANCH }}
-        git clone ${{ github.event.inputs.DEVICE_TREE }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.DEVICE_PATH }}
+        git clone ${{ github.event.inputs.DEVICE_TREE }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.DEVICE_PATH }} 
         cd ${{ github.event.inputs.DEVICE_PATH }}
         echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
