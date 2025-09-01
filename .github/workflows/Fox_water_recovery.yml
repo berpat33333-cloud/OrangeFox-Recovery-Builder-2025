@@ -3,7 +3,7 @@
 # - Script to set up things for building OrangeFox with a minimal build system
 # - Syncs the relevant twrp minimal manifest, and patches it for building OrangeFox
 # - Pulls in the OrangeFox recovery sources and vendor tree
-# - Author:  DarthJabba9
+# - Author:  DarthJabba
 # - Version: generic:020
 # - Date:    02 July 2025
 #
