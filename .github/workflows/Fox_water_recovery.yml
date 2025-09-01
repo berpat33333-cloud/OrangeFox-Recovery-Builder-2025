@@ -79,10 +79,11 @@ jobs:
         export GIT_TRACE_PACKET=1
         export GIT_TRACE=1
         export GIT_CURL_VERBOSE=1
+        
     - name: Swap Space
       uses: pierotofy/set-swap-space@master
       with:
-        swap-size-gb: 24
+        swap-size-gb: 16
       
     - name: Build Environment
       run: |
